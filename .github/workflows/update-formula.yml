@@ -1,0 +1,46 @@
+name: Update Formula
+
+on:
+  repository_dispatch:
+    types: [update-formula]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update formula
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
+          SHA_LINUX_X86: ${{ github.event.client_payload.sha_linux_x86 }}
+          SHA_MAC_X86: ${{ github.event.client_payload.sha_mac_x86 }}
+          SHA_MAC_ARM: ${{ github.event.client_payload.sha_mac_arm }}
+        run: |
+          sed -i "s/version \".*\"/version \"$VERSION\"/" Formula/shabka.rb
+
+          # Update SHA256 checksums in order of appearance
+          # 1st sha256 = macOS Intel, 2nd = macOS ARM, 3rd = Linux x86_64
+          awk -v mac_x86="$SHA_MAC_X86" -v mac_arm="$SHA_MAC_ARM" -v linux_x86="$SHA_LINUX_X86" '
+            BEGIN { n=0 }
+            /sha256 "/ { n++
+              if (n==1) sub(/sha256 "[^"]*"/, "sha256 \"" mac_x86 "\"")
+              if (n==2) sub(/sha256 "[^"]*"/, "sha256 \"" mac_arm "\"")
+              if (n==3) sub(/sha256 "[^"]*"/, "sha256 \"" linux_x86 "\"")
+            }
+            { print }
+          ' Formula/shabka.rb > Formula/shabka.rb.tmp
+          mv Formula/shabka.rb.tmp Formula/shabka.rb
+
+      - name: Commit and push
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/shabka.rb
+          git commit -m "shabka $VERSION"
+          git push
