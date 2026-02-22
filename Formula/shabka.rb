@@ -7,18 +7,18 @@ class Shabka < Formula
   on_macos do
     on_intel do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "PLACEHOLDER"
+      sha256 ""
     end
     on_arm do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "PLACEHOLDER"
+      sha256 ""
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "PLACEHOLDER"
+      sha256 ""
     end
   end
 
