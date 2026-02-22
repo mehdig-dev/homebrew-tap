@@ -2,23 +2,23 @@ class Shabka < Formula
   desc "Persistent memory for LLM coding agents"
   homepage "https://github.com/mehdig-dev/shabka"
   license any_of: ["MIT", "Apache-2.0"]
-  version "0.5.1"
+  version "0.5.2"
 
   on_macos do
     on_intel do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "d8228ddda59d0dd1fbba2afa06240ad1e63717c54fb9a96aef6ea24c654f0070"
+      sha256 "33bbbc75cddffb8aa3beb4434c660a5266b21bf64a01f61c1c0a383357107dbe"
     end
     on_arm do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "27e90b2f05d0f4ff9bd4e2fee75c16cfc13b41ecf2432d98a1532c02cc9eea4e"
+      sha256 "fa4a937fd4f1a30b704b13e74711af1fb0e49ef6776b7cfc9a05517fe9f754d9"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/mehdig-dev/shabka/releases/download/v#{version}/shabka-v#{version}-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "9ac9212212d171cb681f174ffd1a5b12577a4ace02fd52cf990a8fe7191ea1b9"
+      sha256 "7d4934323e3f0c2ee39da90e0c77c189b5bb5a6d4eda4a6a52e7ae810a727d68"
     end
   end
 
